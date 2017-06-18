@@ -1,3 +1,28 @@
 @charset "utf-8";
 /* CSS Document */
-
+#wrap{
+	width: 600px;
+	height: auto;
+	margin: 0 auto;
+}
+#wrap h1, p{
+	text-align: center;
+}
+#tablero{
+	width: 400px;
+	height: 400px;
+	border: solid 1px #000000;
+	margin: 0 auto;
+}
+.blanco{
+	width: 50px;
+	height: 50px;
+	background-color: #ffffff;
+	float: left;
+}
+.negro{
+	width: 50px;
+	height: 50px;
+	background-color: #000000;
+	float: left;
+}
