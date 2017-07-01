@@ -42,23 +42,39 @@ $(document).ready(function(){
 					$(ui.draggable).appendTo($(this));
 					if(ui.draggable.hasClass("ficha-rojo")){
 						if((parseInt(pos_actual[0])-2) == parseInt(pos_anterior[0])){
-							alert("comer");
-						}else{
-							alert("no comer");
+							var col = (pos_anterior[1] > pos_actual[1]) ? parseInt(pos_anterior[1]) - 1 : parseInt(pos_anterior[1]) + 1;
+							var id = parseInt(pos_actual[0])-1 + "-" +  col;
+							$("#"+id).empty();
 						}
 					}else{
-						alert("nulo");
+						if((parseInt(pos_actual[0])+2) == parseInt(pos_anterior[0])){
+							var col = (pos_anterior[1] > pos_actual[1]) ? parseInt(pos_anterior[1]) - 1 : parseInt(pos_anterior[1]) + 1;
+							var id = parseInt(pos_actual[0])+1 + "-" +  col;
+							$("#"+id).empty();
+						}
 					}
-					
-					/*alert(pos_actual);
-					alert(pos_anterior);*/
-					//alert(posicion[0]);
-				}/*,
+				},
 				accept: function(d){
-					var pos_actual = $(this).attr("id").split("-");
-					var pos_anterior = ui.draggable.parent().attr("id").split("-");
-					
-				}*/
+					var pos_actual = d.parent().prop("id").split("-");
+					var col = parseInt(pos_actual[1]);
+					var pos_anterior = $(this).attr("id").split("-");
+					if(d.hasClass("ficha-rojo")){
+						if((parseInt(pos_anterior[0])-2) == parseInt(pos_actual[0])){
+							col_new = (col > parseInt(pos_anterior[1])) ? parseInt(pos_anterior[1]) + 1 : parseInt(pos_anterior[1]) - 1;
+							id = (parseInt(pos_anterior[0])-1) +"-"+col_new;
+							return($("#"+id).children().hasClass("ficha-azul") && ! $(this).children().length > 0);
+						}
+						return ((parseInt(pos_anterior[0])-1) == parseInt(pos_actual[0]) && ((parseInt(pos_anterior[1])-1) == col || (parseInt(pos_anterior[1])+1) == col)) &&(!$(this).children().length > 0);
+
+					}else{
+						if((parseInt(pos_anterior[0])+2) == parseInt(pos_actual[0])){
+							col_new = (col > parseInt(pos_anterior[1])) ? parseInt(pos_anterior[1]) + 1 : parseInt(pos_anterior[1]) - 1;
+							id = (parseInt(pos_anterior[0])+1) +"-"+col_new;
+							return($("#"+id).children().hasClass("ficha-rojo") && ! $(this).children().length > 0);
+						}
+						return ((parseInt(pos_anterior[0])+1) == parseInt(pos_actual[0]) && ((parseInt(pos_anterior[1])-1) == col || (parseInt(pos_anterior[1])+1) == col)) &&(!$(this).children().length > 0);									 
+					}
+				}
 			})
 		}
 	}
